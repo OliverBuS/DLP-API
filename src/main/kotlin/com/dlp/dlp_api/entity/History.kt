@@ -5,10 +5,10 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "history")
-data class History(
+class History(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    val id: Long,
 
     @Column(name = "code")
     val code: String? = null,

@@ -4,10 +4,10 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "network_endpoint")
-data class NetworkEndpoint(
+class NetworkEndpoint(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    val id: Long? = null,
 
     @Column(name = "name", nullable = false)
     val name: String,

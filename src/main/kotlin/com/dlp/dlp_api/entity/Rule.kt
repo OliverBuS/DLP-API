@@ -5,13 +5,13 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "rules")
-data class Rule(
+class Rule(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    var id: Long? = null,
 
     @Column(name = "codigo")
-    val code: String? = null,
+    var code: String? = null,
 
     @Column(name = "name", nullable = false)
     val name: String,
@@ -50,13 +50,13 @@ data class Rule(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "created_by")
-    val createdBy: Int? = null,
+    val createdBy: Long? = null,
 
     @Column(name = "updated_at", nullable = false)
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "updated_by")
-    val updatedBy: Int? = null,
+    val updatedBy: Long? = null,
 
     @ManyToMany
     @JoinTable(

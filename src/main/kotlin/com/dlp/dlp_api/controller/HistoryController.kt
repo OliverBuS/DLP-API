@@ -1,6 +1,7 @@
 package com.dlp.dlp_api.controller
 
 import com.dlp.dlp_api.entity.History
+import com.dlp.dlp_api.model.SummaryData
 import com.dlp.dlp_api.service.HistoryService
 import org.springframework.web.bind.annotation.*
 
@@ -22,5 +23,11 @@ class HistoryController (private val historyService: HistoryService) {
     fun getById(@PathVariable id: Long): History {
         return historyService.getById(id)
     }
+
+    @GetMapping("/summary")
+    fun getSummary(): List<SummaryData> {
+        return historyService.getSummary()
+    }
+
 
 }

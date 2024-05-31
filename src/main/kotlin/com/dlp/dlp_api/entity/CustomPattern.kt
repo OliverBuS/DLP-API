@@ -14,7 +14,7 @@ class CustomPattern (
     @Column(nullable = false)
     var regex: String,
     @Column(nullable = false)
-    var score: Int,
+    var score: Float,
 
     @ManyToOne
     @JoinColumn(name="entity_type_id")

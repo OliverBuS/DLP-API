@@ -20,4 +20,12 @@ class RuleService (private val ruleRepository: RuleRepository) {
         return ruleRepository.save(rule)
     }
 
+    fun delete(id: Long) {
+        ruleRepository.deleteById(id)
+    }
+
+    fun exists(id: Long): Boolean {
+        return ruleRepository.existsById(id)
+    }
+
 }

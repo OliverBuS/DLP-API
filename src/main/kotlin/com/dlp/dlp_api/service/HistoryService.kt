@@ -2,7 +2,7 @@ package com.dlp.dlp_api.service
 
 import com.dlp.dlp_api.entity.History
 import com.dlp.dlp_api.repository.HistoryRepository
-import org.springframework.data.domain.Page
+import com.dlp.dlp_api.model.SummaryData
 import org.springframework.data.domain.PageRequest
 import org.springframework.data.domain.Sort
 import org.springframework.stereotype.Service
@@ -18,4 +18,7 @@ class HistoryService (private val historyRepository: HistoryRepository) {
         return historyRepository.findById(id).orElseThrow()
     }
 
+    fun getSummary(): List<SummaryData> {
+        return historyRepository.getSummary()
+    }
 }

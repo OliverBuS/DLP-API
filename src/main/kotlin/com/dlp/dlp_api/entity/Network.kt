@@ -5,10 +5,10 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "networks")
-data class Network(
+class Network(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    val id: Int? = null,
+    var id: Long? = null,
 
     @Column(name = "subnet", nullable = false)
     val subnet: String,
@@ -23,13 +23,13 @@ data class Network(
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "created_by", nullable = false)
-    val createdBy: Int,
+    val createdBy: Long,
 
     @Column(name = "updated_at", nullable = false)
     val updatedAt: LocalDateTime = LocalDateTime.now(),
 
     @Column(name = "updated_by", nullable = false)
-    val updatedBy: Int,
+    val updatedBy: Long,
 
     @OneToMany(mappedBy = "network", cascade = [CascadeType.ALL], orphanRemoval = true)
     val endpoints: List<NetworkEndpoint> = emptyList(),

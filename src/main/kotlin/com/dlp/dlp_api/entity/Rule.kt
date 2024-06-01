@@ -1,5 +1,6 @@
 package com.dlp.dlp_api.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -46,10 +47,10 @@ class Rule(
     @Column(name = "alerts", nullable = false)
     val alerts: Boolean = false,
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     val createdBy: Long? = null,
 
     @Column(name = "updated_at", nullable = false)
@@ -64,6 +65,7 @@ class Rule(
         joinColumns = [JoinColumn(name = "rule_id")],
         inverseJoinColumns = [JoinColumn(name = "network_id")]
     )
+    @JsonIgnoreProperties("rules")
     val networks: Set<Network> = emptySet()
 ) {
     enum class Action {

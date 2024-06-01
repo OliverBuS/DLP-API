@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RestControllerAdvice
 class ExceptionHandler {
     @ExceptionHandler(ReferenceNotFoundException::class)
     fun handleReferenceNotFoundException(e: ReferenceNotFoundException): ResponseEntity<ErrorResponse> {
-        val errorMessage = ErrorResponse("Reference not found")
+        val errorMessage = ErrorResponse(e.message ?: "Reference not found")
         return ResponseEntity.status(404).body(errorMessage)
     }
 }

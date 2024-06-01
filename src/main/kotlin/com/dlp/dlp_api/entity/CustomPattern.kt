@@ -5,11 +5,11 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "custom_patterns")
-class CustomPattern (
+class CustomPattern(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     var id: Long? = null,
-    @Column(nullable = false,unique = true)
+    @Column(nullable = false, unique = true)
     var name: String,
     @Column(nullable = false)
     var regex: String,
@@ -17,8 +17,8 @@ class CustomPattern (
     var score: Float,
 
     @ManyToOne
-    @JoinColumn(name="entity_type_id")
+    @JoinColumn(name = "entity_type_id")
     @JsonIgnore
-    var entityType: CustomEntityType,
+    var entityType: CustomEntityType
 
 )

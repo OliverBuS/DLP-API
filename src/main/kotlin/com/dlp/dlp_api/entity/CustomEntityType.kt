@@ -5,7 +5,7 @@ import java.time.LocalDateTime
 
 @Entity
 @Table(name = "custom_entity_types")
-class CustomEntityType (
+class CustomEntityType(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
@@ -23,7 +23,7 @@ class CustomEntityType (
     @Column(name = "created_at", nullable = false)
     var createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     var createdBy: Long? = null,
 
     @Column(name = "updated_at", nullable = false)
@@ -41,8 +41,8 @@ class CustomEntityType (
     @OneToMany(mappedBy = "entityType", cascade = [CascadeType.ALL], orphanRemoval = true)
     var contextWords: List<CustomContextWord> = emptyList()
 
-)
-
-enum class DetectionType {
-    Dictionary, Pattern, Tag
+) {
+    enum class DetectionType {
+        Dictionary, Pattern, Tag
+    }
 }

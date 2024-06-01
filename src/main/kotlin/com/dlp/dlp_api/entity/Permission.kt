@@ -10,5 +10,5 @@ class Permission(
     val id: Int = 0,
 
     @Column(nullable = false, unique = true)
-    var permission: String? = null
+    var permission: String
 )

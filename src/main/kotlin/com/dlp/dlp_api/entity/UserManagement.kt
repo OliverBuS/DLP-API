@@ -23,17 +23,20 @@ data class UserManagement(
     @Column(nullable = false)
     var password: String,
 
-    @ManyToMany(fetch = FetchType.EAGER, cascade = [CascadeType.ALL])
-    @JoinTable(
-        name = "users_roles",
-        joinColumns = [JoinColumn(name = "user_id")],
-        inverseJoinColumns = [JoinColumn(name = "role_id")]
-    )
-    val roles: Set<Role> = HashSet(),
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "role_id")
+    val role: Role,
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_by", updatable = false)
+    val createdBy: Long? = null,
+
+    @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
+    @Column(name = "updated_by")
+    val updatedBy: Long? = null,
+
     @Column(name = "updated_at", nullable = false)
-    val updatedAt: LocalDateTime = LocalDateTime.now()
-)
+    val updatedAt: LocalDateTime = LocalDateTime.now(),
+
+    )

@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "custom_deny_list")
-class CustomDenyList (
+class CustomDenyList(
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     var id: Long? = null,
@@ -13,7 +13,7 @@ class CustomDenyList (
     var value: String,
 
     @ManyToOne
-    @JoinColumn(name="entity_type_id")
+    @JoinColumn(name = "entity_type_id")
     @JsonIgnore
     var entityType: CustomEntityType
 )

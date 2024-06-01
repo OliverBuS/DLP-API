@@ -5,7 +5,7 @@ import jakarta.persistence.*
 
 @Entity
 @Table(name = "custom_context_words")
-class CustomContextWord (
+class CustomContextWord(
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     var id: Long? = null,
@@ -13,7 +13,7 @@ class CustomContextWord (
     var word: String,
 
     @ManyToOne
-    @JoinColumn(name="entity_type_id")
+    @JoinColumn(name = "entity_type_id")
     @JsonIgnore
     var entityType: CustomEntityType,
 )

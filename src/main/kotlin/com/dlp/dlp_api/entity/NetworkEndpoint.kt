@@ -1,4 +1,6 @@
 package com.dlp.dlp_api.entity
+
+import com.fasterxml.jackson.annotation.JsonIgnore
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -22,11 +24,12 @@ class NetworkEndpoint(
     @Column(name = "status", nullable = false)
     val status: UserStatus = UserStatus.NORMAL,
 
-    @Column(name = "created_at", nullable = false)
+    @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
     @ManyToOne
     @JoinColumn(name = "network_id", nullable = false)
+    @JsonIgnore
     val network: Network
 
 ) {

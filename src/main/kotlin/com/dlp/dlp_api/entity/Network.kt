@@ -1,5 +1,6 @@
 package com.dlp.dlp_api.entity
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
 import jakarta.persistence.*
 import java.time.LocalDateTime
 
@@ -11,28 +12,28 @@ class Network(
     var id: Long? = null,
 
     @Column(name = "subnet", nullable = false)
-    val subnet: String,
+    var subnet: String,
 
     @Column(name = "name", nullable = false)
-    val name: String,
+    var name: String,
 
     @Column(name = "description", nullable = false)
-    val description: String,
+    var description: String,
 
-    @Column(name = "created_at", nullable = false)
-    val createdAt: LocalDateTime = LocalDateTime.now(),
+    @Column(name = "created_at", nullable = false, updatable = false)
+    var createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "created_by", nullable = false)
-    val createdBy: Long,
+    @Column(name = "created_by", updatable = false)
+    var createdBy: Long? = null,
 
     @Column(name = "updated_at", nullable = false)
-    val updatedAt: LocalDateTime = LocalDateTime.now(),
+    var updatedAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "updated_by", nullable = false)
-    val updatedBy: Long,
+    @Column(name = "updated_by")
+    var updatedBy: Long? = null,
 
-    @OneToMany(mappedBy = "network", cascade = [CascadeType.ALL], orphanRemoval = true)
-    val endpoints: List<NetworkEndpoint> = emptyList(),
+    @OneToMany(mappedBy = "network")
+    var endpoints: List<NetworkEndpoint> = emptyList(),
 
     @ManyToMany
     @JoinTable(
@@ -40,4 +41,6 @@ class Network(
         joinColumns = [JoinColumn(name = "network_id")],
         inverseJoinColumns = [JoinColumn(name = "rule_id")]
     )
-    val rules: List<Rule>)
+    @JsonIgnoreProperties("networks")
+    var rules: List<Rule>
+)

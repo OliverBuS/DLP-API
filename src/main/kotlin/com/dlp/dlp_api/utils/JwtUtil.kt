@@ -2,25 +2,23 @@ package com.dlp.dlp_api.utils
 
 import com.dlp.dlp_api.entity.User
 import io.jsonwebtoken.Jwts
-import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.stereotype.Component
 import java.nio.charset.StandardCharsets
 import java.util.*
 import javax.crypto.SecretKey
-import kotlin.collections.HashMap
 
 @Component
 class JwtUtil {
     private val secret = "pucpguardian123OliverAngelG123PUCPGuardian721"
-    private val secretKey : SecretKey = Keys.hmacShaKeyFor(secret.toByteArray(StandardCharsets.UTF_8))
+    private val secretKey: SecretKey = Keys.hmacShaKeyFor(secret.toByteArray(StandardCharsets.UTF_8))
     private val expirationInMs = 86400000 // 24 hours
 
     fun generateToken(user: User): String {
         val claims = HashMap<String, Any>()
         claims["sub"] = user.email
-        claims["roles"] = user.roles.map { it.role }
-        claims["permissions"] = user.roles.flatMap { it.permissions }.map { it.permission }
+        claims["role"] = user.role
+        claims["permissions"] = user.role.permissions.map { it.permission }
 
         return Jwts.builder()
             .setClaims(claims)

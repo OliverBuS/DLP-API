@@ -7,6 +7,7 @@ import java.time.LocalDateTime
 @Entity
 @Table(name = "roles")
 class Role(
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rols_id_seq")
     @SequenceGenerator(name = "rols_id_seq", sequenceName = "rols_id_seq", allocationSize = 1)
@@ -26,7 +27,7 @@ class Role(
     @Column(name = "created_at", nullable = false, updatable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),
 
-    @Column(name = "created_by")
+    @Column(name = "created_by", updatable = false)
     val createdBy: Int? = null,
 
     @Column(name = "updated_at", nullable = false)

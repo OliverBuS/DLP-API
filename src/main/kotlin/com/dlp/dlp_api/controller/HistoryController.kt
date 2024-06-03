@@ -1,15 +1,17 @@
 package com.dlp.dlp_api.controller
 
 import com.dlp.dlp_api.entity.History
+import com.dlp.dlp_api.model.AlertCountByLevel
 import com.dlp.dlp_api.model.SummaryData
 import com.dlp.dlp_api.repository.HistoryRepository
+import com.dlp.dlp_api.service.HistoryService
 import org.springframework.data.domain.PageRequest
 import org.springframework.web.bind.annotation.*
 
 
 @RestController
 @RequestMapping("/history")
-class HistoryController(private val historyRepository: HistoryRepository) {
+class HistoryController(private val historyRepository: HistoryRepository, private val historyService: HistoryService) {
 
     @GetMapping
     fun getAll(
@@ -31,5 +33,8 @@ class HistoryController(private val historyRepository: HistoryRepository) {
         return historyRepository.getSummary()
     }
 
-
+    @GetMapping("/alerts/count-by-level")
+    fun getCountAlertsByLevel(): List<AlertCountByLevel> {
+        return historyService.getCountAlertsByLevel()
+    }
 }

@@ -1,36 +1,39 @@
 package com.dlp.dlp_api.utils
 
+import com.dlp.dlp_api.config.JwtConfig
 import com.dlp.dlp_api.entity.User
 import io.jsonwebtoken.Jwts
+import io.jsonwebtoken.SignatureAlgorithm
 import io.jsonwebtoken.security.Keys
 import org.springframework.stereotype.Component
-import java.nio.charset.StandardCharsets
 import java.util.*
-import javax.crypto.SecretKey
 
 @Component
-class JwtUtil {
-    private val secret = "pucpguardian123OliverAngelG123PUCPGuardian721"
-    private val secretKey: SecretKey = Keys.hmacShaKeyFor(secret.toByteArray(StandardCharsets.UTF_8))
-    private val expirationInMs = 86400000 // 24 hours
-
+class JwtUtil(private val jwtConfig: JwtConfig) {
     fun generateToken(user: User): String {
-        val claims = HashMap<String, Any>()
-        claims["sub"] = user.email
-        claims["role"] = user.role
-        claims["permissions"] = user.role.permissions.map { it.permission }
+        val claims = mapOf(
+            "name" to user.firstName + " " + user.lastName,
+            "email" to user.email,
+            "role" to user.role.role,
+            "permissions" to user.role.permissions.map { it.permission }
+        )
 
         return Jwts.builder()
             .setClaims(claims)
+            .setSubject(user.email)
             .setIssuedAt(Date())
-            .setExpiration(Date(System.currentTimeMillis() + expirationInMs))
-            .signWith(secretKey)
+            .setExpiration(Date(System.currentTimeMillis() + jwtConfig.expiration * 1000))
+            .setIssuer(jwtConfig.issuer)
+            .signWith(Keys.hmacShaKeyFor(jwtConfig.secret.toByteArray()), SignatureAlgorithm.HS256)
             .compact()
     }
 
     fun validateToken(token: String): Boolean {
         return try {
-            Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token) // Build parser first
+            Jwts.parserBuilder()
+                .setSigningKey(Keys.hmacShaKeyFor(jwtConfig.secret.toByteArray()))
+                .build()
+                .parseClaimsJws(token)
             true
         } catch (ex: Exception) {
             false
@@ -38,7 +41,11 @@ class JwtUtil {
     }
 
     fun getEmailFromToken(token: String): String {
-        val claims = Jwts.parserBuilder().setSigningKey(secretKey).build().parseClaimsJws(token).body
-        return claims.subject
+        return Jwts.parserBuilder()
+            .setSigningKey(Keys.hmacShaKeyFor(jwtConfig.secret.toByteArray()))
+            .build()
+            .parseClaimsJws(token)
+            .body
+            .subject
     }
 }

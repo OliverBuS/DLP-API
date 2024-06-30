@@ -65,4 +65,9 @@ class User(
     override fun isEnabled(): Boolean {
         return true
     }
+
+    fun getRoleString(): String = role.role
+
+    fun getPermissions(): List<String> = role.permissions.map { it.permission }
 }
+

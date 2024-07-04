@@ -6,7 +6,6 @@ import org.springframework.security.core.authority.SimpleGrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
 import java.time.LocalDateTime
 
-
 @Entity
 @Table(name = "users")
 class User(
@@ -26,11 +25,11 @@ class User(
 
     @Column(nullable = false)
     @get:JvmName("getPasswordClass")
-    var password: String, // Ideally, this should be a hashed password
+    var password: String,
 
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "role_id")
-    val role: Role,
+    val role: UserRole,
 
     @Column(name = "created_at", nullable = false)
     val createdAt: LocalDateTime = LocalDateTime.now(),

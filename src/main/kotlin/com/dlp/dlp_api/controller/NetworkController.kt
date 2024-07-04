@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping("/network")
 class NetworkController(private val networkRepository: NetworkRepository) {
 
-    @GetMapping("/")
+    @GetMapping
     fun getAll(
         @RequestParam(required = false, defaultValue = "10") size: Int,
         @RequestParam(required = false, defaultValue = "0") page: Int

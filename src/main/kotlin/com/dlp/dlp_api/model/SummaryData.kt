@@ -1,7 +1,8 @@
 package com.dlp.dlp_api.model
 
-data class SummaryData(
-    val level: Int,
-    val count: Int,
+
+interface SummaryData {
+    val level: String
+    val count: Long
     val date: String
-)
+}
